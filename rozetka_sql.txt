@@ -1,0 +1,71 @@
+1)  Scripts to create tables
+
+CREATE TABLE Контрагенты
+(Код INT(9)  NOT NULL Primery key,
+Наименование CHAR(20)  NOT NULL,
+Адрес_доставки  VARCHAR(50)  NOT NULL,
+Телефон_контрагента INT(13) NOT NULL)
+
+2) Scripts to insert data to tables
+
+INSERT INTO Контрагенты (Код, Наименование, Адрес_доставки, Телефон_контрагента)
+VALUES (000000452, 'Харлан Татьяна Геннадиевна ФЛП', 'г.Киев, ул.Заречная', 0662531897)
+
+3) Выберите TOP 3rd EMPLOYEE
+
+SELECT *
+FROM EMP
+WHERE EMPID <=0003
+
+Или если в задании имелось ввиду ТОП EMPLOYEE по уровню зарплаты
+
+SELECT  *
+FROM EMP
+ORDER BY SALARY DESC
+LIMIT 3
+
+Получить 2nd maximum salary
+
+SELECT max (SAlARY), EMPNAME
+FROM   EMP
+WHERE  SAlARY < (SELECT max (SAlARY) FROM EMP)
+
+Вывести "EMPLOYEE NAME", DOB, "DEPARTMENT NAME" of "QA" DEPARTMENT, Sorting by "EMPLOYEE NAME" ASC
+
+SELECT  EMPNAME, DOB,  DEPTNAME
+FROM   EMP as A
+JOIN DEPT as B
+ON A.DEPTID=B.DEPTID
+ORDER BY EMPNAME ASC
+Вывести "EMPLOYEE NAME", "AGE", "DEPARTMENT NAME" Sort by "AGE" DESC
+
+SELECT EMPNAME as EMPLOYEE NAME, DEPTNAME as  DEPARTMENT NAME, DATEDIFF (yy, DOB, DateTime.NOW)as AGE
+FROM EMP as A
+JOIN DEPT as B
+ON A.DEPID=B.DEPID
+ORDER BY AGE DESC
+
+Вывести "DEPARTMENT NAME", Number of Employees Sort by Number of Employees
+
+SELECT DEPTNAME as DEPARTMENT NAME, count (EMPNAME) as Number of Employees
+FROM  DEPT as B
+JOIN   IMP as A
+ON  A.DEPTID=B.DEPTID
+GROUP BY  DEPTNAME
+ORDER BY Number of Employees
+
+Вывести EMPLOYEE NAME, MANAGER NAME, DEPARTMENT NAME
+SELECT EMPNAME as EMPLOYEE NAME, MGRID, DEPTNAME as  DEPARTMENT NAME
+FROM  EMP as A
+LEFT JOIN   DEPT as B
+ON A.DEPTID=B.DEPTID
+
+Вывести EMPLOYEE NAME, MANAGER NAME, DEPARTMENT NAME
+
+SELECT EMPNAME as EMPLOYEE NAME, MGRID, DEPTNAME as DEPARTMENT NAME, count(EMPID)
+FROM  EMP as A
+JOIN  DEPT as B
+ON A.DEPTID=B.DEPTID
+GROUP BY  DEPTNAME
+HAVING count(EMPID) > 1
+
